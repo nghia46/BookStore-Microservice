@@ -24,4 +24,5 @@ Tổng Kết
 Người dùng đăng ký tài khoản và quản trị viên thêm sách mới vào hệ thống.
 Người dùng tạo đơn mượn sách qua BorrowingService, đơn mượn được lưu trữ và thông điệp về đơn mượn được gửi qua RabbitMQ.
 NotificationService lắng nghe thông điệp từ RabbitMQ, xử lý thông điệp và gửi thông báo cho người dùng.
-Luồng đi này đảm bảo rằng tất cả các thành phần của hệ thống hoạt động độc lập và giao tiếp hiệu quả thông qua RabbitMQ, tạo điều kiện cho việc mở rộng và bảo trì dễ dàng.
+# Kết Luận
+## Luồng đi này đảm bảo rằng tất cả các thành phần của hệ thống hoạt động độc lập và giao tiếp hiệu quả thông qua RabbitMQ, tạo điều kiện cho việc mở rộng và bảo trì dễ dàng.
