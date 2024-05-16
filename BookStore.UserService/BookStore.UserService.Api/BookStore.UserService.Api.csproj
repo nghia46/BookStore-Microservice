@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0-preview.3.24172.13" />
+    <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookStore.UserService.Commands\BookStore.UserService.Commands.csproj" />
+    <ProjectReference Include="..\BookStore.UserService.Infrastructure\BookStore.UserService.Infrastructure.csproj" />
+    <ProjectReference Include="..\BookStore.UserService.Queries\BookStore.UserService.Queries.csproj" />
+  </ItemGroup>
+
+</Project>
