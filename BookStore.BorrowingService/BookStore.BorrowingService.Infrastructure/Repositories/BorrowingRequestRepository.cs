@@ -1,5 +1,5 @@
-﻿using BookStore.BorrowingService.Domain.Entities;
-using BookStore.BorrowingService.Domain.Interface;
+﻿using BookStore.BorrowingService.Domain.Interface;
+using BookStore.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 

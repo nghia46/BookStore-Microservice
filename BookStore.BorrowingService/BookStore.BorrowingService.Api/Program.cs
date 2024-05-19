@@ -3,6 +3,7 @@ using BookStore.BorrowingService.Domain.Interface;
 using BookStore.BorrowingService.Infrastructure.Repositories;
 using BookStore.BorrowingService.Queries;
 using MassTransit;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,9 +21,37 @@ builder.Services.AddScoped<IBorrowingRequestRepository, BorrowingRequestReposito
 #endregion
 
 #region  defaultService
+builder.Services.AddSingleton(builder.Configuration);
+builder.Configuration.AddJsonFile($"appsettings.json");
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+#endregion
+
+
+
+#region Swagger
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+        new Microsoft.OpenApi.Models.OpenApiInfo
+        {
+            Title = "BookStore Borrowing Service",
+            Description = "Book store Borrowing Service",
+            Version = "v1",
+        });
+});
+
 #endregion
 
 #region AMQP
@@ -31,7 +60,11 @@ builder.Services.AddMassTransit(x =>
 {
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host(new Uri("rabbitmq://guest:guest@localhost:5672"));
+        cfg.Host(new Uri(builder.Configuration["RabbitMq:Host"] ?? throw new NullReferenceException()), h =>
+        {
+            h.Username(builder.Configuration["RabbitMq:Username"] ?? throw new NullReferenceException());
+            h.Password(builder.Configuration["RabbitMq:Password"] ?? throw new NullReferenceException());
+        });
 
     });
 });
@@ -51,9 +84,19 @@ await busControl.StartAsync();
 #endregion
 
 
+app.UseCors();
+
 app.UseSwagger();
 
-app.UseSwaggerUI();
+#region SwaggerUI
+
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore Borrowing Service");
+    c.RoutePrefix = "";
+});
+
+#endregion
 
 app.UseHttpsRedirection();
 

@@ -1,4 +1,4 @@
-﻿using BookStore.BorrowingService.Domain.Entities;
+﻿using BookStore.Domain.Entities;
 using MediatR;
 
 namespace BookStore.BorrowingService.Commands.Commands.BorrowingRequests;

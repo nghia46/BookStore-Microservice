@@ -1,4 +1,4 @@
-﻿using BookStore.BorrowingService.Domain.Entities;
+﻿using BookStore.Domain.Entities;
 
 namespace BookStore.BorrowingService.Domain.Interface;
 
