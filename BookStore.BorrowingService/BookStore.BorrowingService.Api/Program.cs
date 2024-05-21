@@ -89,7 +89,6 @@ app.UseCors();
 app.UseSwagger();
 
 #region SwaggerUI
-
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore Borrowing Service");
